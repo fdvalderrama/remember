@@ -1,0 +1,42 @@
+<div class="h-screen flex items-center">
+  <div class="w-1/2 flex flex-col items-center">
+
+    <input type="text" placeholder="Buscar..." class="border-2 border-gray-300 rounded-md p-2 w-64 mb-4" [(ngModel)]="searchTerm">
+
+    <table class="w-1/5 mb-5">
+    <thead>
+      <tr>
+        <th class="border px-4 py-2">Nombre</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of paginatedCategorias(); track $index) {
+        <tr class="cursor-pointer hover:bg-gray-400" [class.bg-gray-400]="categoriaNueva.id === item.id"
+        (click)="selectCategoria(item)">
+          <td class="border px-4 py-2">{{item.nombre}}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <div>
+    <button class="bg-gray-700 hover:bg-black text-white font-bold py-2 px-4 rounded-3xl mx-1" [disabled]="currentPage() === 1" (click)="prevPage()">Anterior</button>
+    <span class="mx-2">Página {{currentPage()}} de {{totalPages()}}</span>
+    <button class="bg-gray-700 hover:bg-black text-white font-bold py-2 px-4 rounded-3xl mx-1" [disabled]="currentPage() === totalPages()" (click)="nextPage()">Siguiente</button>
+  </div>
+
+  </div>
+  <div class="w-1/2">
+
+    <form class="flex flex-col items-center" (ngSubmit)="upsertCategoria()">
+      <h1 class="text-3xl mb-8">Categoría</h1>
+      <input class="border-2 border-gray-300 rounded-md p-2 w-64" type="text" placeholder="Nombre" [(ngModel)]="categoriaNueva.nombre" name="nombre">
+      <button type="submit" class="bg-gray-700 hover:bg-black text-white font-bold py-2 px-8 rounded-3xl mt-6">Agregar</button>
+      <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-8 rounded-3xl mt-4" (click)="clearForm()">Clear</button>
+      <button type="button" class="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-8 rounded-3xl mt-4" (click)="deleteCategoria()">Eliminar</button>
+    </form>
+
+  </div>
+</div>
+
+
