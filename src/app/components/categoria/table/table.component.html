@@ -1,0 +1,28 @@
+<div class="flex flex-col items-center">
+
+
+
+<input type="text" placeholder="Buscar..." class="border-2 border-gray-300 rounded-md p-2 w-64 mb-4" [(ngModel)]="searchTerm">
+
+    <table class="w-1/5 mb-5">
+    <thead>
+      <tr>
+        <th class="border px-4 py-2">Nombre</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of paginatedCategorias(); track $index) {
+        <tr class="cursor-pointer hover:bg-gray-400" [class.bg-gray-400]="categoriaSelected()?.id === item.id"
+        (click)="selectCategoria(item)">
+          <td class="border px-4 py-2">{{item.nombre}}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <div>
+    <button class="bg-gray-700 hover:bg-black text-white font-bold py-2 px-4 rounded-3xl mx-1" [disabled]="currentPage() === 1" (click)="prevPage()">Anterior</button>
+    <span class="mx-2">Página {{currentPage()}} de {{totalPages()}}</span>
+    <button class="bg-gray-700 hover:bg-black text-white font-bold py-2 px-4 rounded-3xl mx-1" [disabled]="currentPage() === totalPages()" (click)="nextPage()">Siguiente</button>
+  </div>
+</div>
